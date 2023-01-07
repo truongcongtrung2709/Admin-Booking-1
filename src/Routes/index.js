@@ -1,4 +1,3 @@
-import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 
 import RootAdmin from '../modules/RootAdmin';
@@ -17,19 +16,24 @@ import AddBooking from '../modules/RootAdmin/Booking/AddBooking'
 import AddComment from '../modules/RootAdmin/Comment/AddComment'
 import AddLocation from '../modules/RootAdmin/Location/AddLocation'
 
-
-
+import Login from '../modules/Auth/Login/Login';
+import Protected from './Protected';
 
 export const routes = createBrowserRouter([
-    // {
-    //     path: '/', element: <Login />
-    // },
+    {
+        path: '/', element: <Login />
+    },
+    
     {
         path: '/admin',
-        element: <RootAdmin />,
+        element: 
+        <Protected>
+            <RootAdmin />
+        </Protected>
+        ,
         errorElement: <ErrorBoundary />,
         children: [
-            //{ path: "/admin", element: <Home /> },
+            
 
             // User
             { path: "/admin/users", element: <GetUsers /> },
