@@ -1,36 +1,36 @@
-import axios from 'axios';
+import axios from "axios";
 
 const fetcher = axios.create({
-    baseURL: 'https://airbnbnew.cybersoft.edu.vn/api',
-    headers: {
-        TokenCybersoft: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCAzMiIsIkhldEhhblN0cmluZyI6IjE3LzA0LzIwMjMiLCJIZXRIYW5UaW1lIjoiMTY4MTY4OTYwMDAwMCIsIm5iZiI6MTY1MzkzMDAwMCwiZXhwIjoxNjgxODM3MjAwfQ.Yk1H5QCjda1n9Cd5-k2yU_DLnRqRvaB7FIkn1hIuPE0'
-    }
+  baseURL: "https://airbnbnew.cybersoft.edu.vn/api",
+  headers: {
+    TokenCybersoft:
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA0MyIsIkhldEhhblN0cmluZyI6IjA0LzExLzIwMjMiLCJIZXRIYW5UaW1lIjoiMTY5OTA1NjAwMDAwMCIsIm5iZiI6MTY2OTQ4MjAwMCwiZXhwIjoxNjk5MjAzNjAwfQ.7A1g8",
+  },
 });
 
 fetcher.interceptors.response.use(
-    (response) => {
-        return response.data.content;
-    },
-    (error) => {
-        return error
-    }
+  (response) => {
+    return response.data.content;
+  },
+  (error) => {
+    return error;
+  }
 );
 
 fetcher.interceptors.request.use(
-    (config) => {
-        const { token } = JSON.parse(localStorage.getItem("user")) || {};
+  (config) => {
+    const { token } = JSON.parse(localStorage.getItem("user")) || {};
 
-        if(token){
-            // config.headers.token = `Bearer ${token}`;
-            config.headers.token = token;
-
-        }
-
-        return config;
-    },
-    (error) => {
-        return error;
+    if (token) {
+      // config.headers.token = `Bearer ${token}`;
+      config.headers.token = token;
     }
-)
+
+    return config;
+  },
+  (error) => {
+    return error;
+  }
+);
 
 export default fetcher;
